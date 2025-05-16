@@ -1,6 +1,8 @@
 
 import { Button } from "@/components/ui/button";
 import { Sun, Cloud, ArrowDownCircle } from "lucide-react";
+import Lottie from "lottie-react";
+import solarPanelAnimation from "@/assets/animations/solar-panels.json";
 
 const Hero = () => {
   return (
@@ -44,12 +46,14 @@ const Hero = () => {
         
         <div className="mt-16 md:mt-24 max-w-5xl mx-auto">
           <div className="card-gradient rounded-2xl p-6 shadow-lg">
-            <img 
-              src="https://images.unsplash.com/photo-1611365892117-0d56993ba802?q=80&w=1200&auto=format&fit=crop" 
-              alt="Solar panels on house roof" 
-              className="w-full h-auto rounded-xl object-cover shadow-md panel-glow"
-              style={{ maxHeight: '500px' }}
-            />
+            <div className="relative">
+              <Lottie 
+                animationData={solarPanelAnimation} 
+                loop={true} 
+                className="w-full h-auto rounded-xl object-cover shadow-md panel-glow"
+                style={{ maxHeight: '500px' }}
+              />
+            </div>
           </div>
         </div>
       </div>

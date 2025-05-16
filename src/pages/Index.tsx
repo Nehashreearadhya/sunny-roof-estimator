@@ -5,6 +5,7 @@ import Hero from "@/components/Hero";
 import DrawingTool from "@/components/DrawingTool";
 import LocationSelector from "@/components/LocationSelector";
 import EnergyDashboard from "@/components/EnergyDashboard";
+import WeatherReport from "@/components/WeatherReport";
 import HowItWorks from "@/components/HowItWorks";
 import Benefits from "@/components/Benefits";
 import Contact from "@/components/Contact";
@@ -48,6 +49,14 @@ const Index = () => {
               area={rooftopArea} 
               stateId={selectedStateId} 
               districtId={selectedDistrictId}
+            />
+          </div>
+
+          {/* Weather Report Section */}
+          <div className="mt-8">
+            <WeatherReport 
+              stateId={selectedStateId} 
+              districtId={selectedDistrictId} 
             />
           </div>
         </section>

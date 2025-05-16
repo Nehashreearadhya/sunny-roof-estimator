@@ -1,6 +1,8 @@
 
 import { Card, CardContent } from "@/components/ui/card";
 import { MapPin, Zap, BarChart3, Coins } from "lucide-react";
+import Lottie from "lottie-react";
+import environmentAnimation from "@/assets/animations/environment.json";
 
 const Benefits = () => {
   const benefits = [
@@ -33,6 +35,14 @@ const Benefits = () => {
         <p className="text-lg text-gray-600">
           Discover why our solar estimator is the simplest way to evaluate your solar energy potential.
         </p>
+        
+        <div className="max-w-md mx-auto mt-6 mb-10">
+          <Lottie 
+            animationData={environmentAnimation} 
+            loop={true} 
+            className="w-full h-auto"
+          />
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">

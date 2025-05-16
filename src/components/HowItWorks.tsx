@@ -1,6 +1,8 @@
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Upload, PencilRuler, BarChart3, FileDown } from "lucide-react";
+import Lottie from "lottie-react";
+import solarWorkflowAnimation from "@/assets/animations/solar-workflow.json";
 
 const HowItWorks = () => {
   const steps = [
@@ -41,6 +43,13 @@ const HowItWorks = () => {
         <p className="text-lg text-gray-600">
           Estimate your solar potential in four simple steps, no complex tools or technical knowledge required.
         </p>
+        <div className="max-w-md mx-auto mt-6">
+          <Lottie 
+            animationData={solarWorkflowAnimation} 
+            loop={true} 
+            className="w-full h-auto" 
+          />
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
