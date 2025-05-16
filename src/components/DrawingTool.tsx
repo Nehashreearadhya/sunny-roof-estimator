@@ -1,3 +1,4 @@
+
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,6 +14,7 @@ const DrawingTool = ({ onAreaCalculated }: DrawingToolProps) => {
   const [drawingMode, setDrawingMode] = useState<"pen" | "eraser">("pen");
   const [manualArea, setManualArea] = useState<string>("");
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
+  const [showOriginalImage, setShowOriginalImage] = useState(false);
   
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
@@ -109,6 +111,7 @@ const DrawingTool = ({ onAreaCalculated }: DrawingToolProps) => {
         ctxRef.current.drawImage(img, 0, 0, canvasRef.current.width, canvasRef.current.height);
         imageRef.current = img;
         setUploadedImage(event.target?.result as string);
+        setShowOriginalImage(true); // Show the original image when uploaded
       };
     };
     reader.readAsDataURL(file);
@@ -280,6 +283,11 @@ const DrawingTool = ({ onAreaCalculated }: DrawingToolProps) => {
       onAreaCalculated(area);
     }
   };
+
+  // Toggle original image view
+  const toggleOriginalImage = () => {
+    setShowOriginalImage(!showOriginalImage);
+  };
   
   return (
     <div className="w-full space-y-6">
@@ -288,6 +296,29 @@ const DrawingTool = ({ onAreaCalculated }: DrawingToolProps) => {
           <CardTitle>Draw Your Rooftop Area</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
+          {/* Image Preview */}
+          {uploadedImage && showOriginalImage && (
+            <div className="mb-4">
+              <div className="flex justify-between items-center mb-2">
+                <h4 className="text-sm font-medium">Uploaded Image</h4>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={toggleOriginalImage}
+                >
+                  Hide Original
+                </Button>
+              </div>
+              <div className="relative w-full rounded-lg overflow-hidden border border-gray-200">
+                <img 
+                  src={uploadedImage} 
+                  alt="Uploaded rooftop" 
+                  className="w-full h-auto object-contain max-h-[300px]"
+                />
+              </div>
+            </div>
+          )}
+
           {/* Canvas Container */}
           <div className="relative w-full h-[400px] bg-gray-100 rounded-lg overflow-hidden border-2 border-dashed border-gray-300 flex items-center justify-center">
             {!uploadedImage ? (
@@ -297,14 +328,26 @@ const DrawingTool = ({ onAreaCalculated }: DrawingToolProps) => {
                 <p className="text-xs text-gray-400 mt-1">Supported formats: JPG, PNG</p>
               </div>
             ) : (
-              <canvas
-                ref={canvasRef}
-                onMouseDown={startDrawing}
-                onMouseMove={draw}
-                onMouseUp={endDrawing}
-                onMouseLeave={endDrawing}
-                className="absolute inset-0 w-full h-full cursor-crosshair"
-              />
+              <div className="relative w-full h-full">
+                <canvas
+                  ref={canvasRef}
+                  onMouseDown={startDrawing}
+                  onMouseMove={draw}
+                  onMouseUp={endDrawing}
+                  onMouseLeave={endDrawing}
+                  className="absolute inset-0 w-full h-full cursor-crosshair"
+                />
+                {!showOriginalImage && (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="absolute top-2 right-2 bg-white/80 hover:bg-white"
+                    onClick={toggleOriginalImage}
+                  >
+                    Show Original
+                  </Button>
+                )}
+              </div>
             )}
           </div>
 
@@ -319,9 +362,11 @@ const DrawingTool = ({ onAreaCalculated }: DrawingToolProps) => {
                 id="image-upload"
               />
               <label htmlFor="image-upload">
-                <Button variant="outline" className="w-full" asChild>
-                  <span><Upload className="mr-2 h-4 w-4" /> Upload Image</span>
-                </Button>
+                <div className="w-full">
+                  <Button variant="outline" className="w-full" asChild>
+                    <span><Upload className="mr-2 h-4 w-4" /> Upload Image</span>
+                  </Button>
+                </div>
               </label>
             </div>
             
