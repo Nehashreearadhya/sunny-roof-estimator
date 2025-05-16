@@ -1,4 +1,3 @@
-
 import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -320,8 +319,8 @@ const DrawingTool = ({ onAreaCalculated }: DrawingToolProps) => {
                 id="image-upload"
               />
               <label htmlFor="image-upload">
-                <Button variant="outline" className="w-full" as="span">
-                  <Upload className="mr-2 h-4 w-4" /> Upload Image
+                <Button variant="outline" className="w-full" asChild>
+                  <span><Upload className="mr-2 h-4 w-4" /> Upload Image</span>
                 </Button>
               </label>
             </div>
