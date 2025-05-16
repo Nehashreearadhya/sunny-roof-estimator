@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Feedback - Solar Potential Estimator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f8f9;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #00796b;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 2rem auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      color: #00796b;
+      margin-bottom: 1rem;
+    }
+
+    .review {
+      background: #e0f2f1;
+      border-left: 5px solid #00796b;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+    }
+
+    .moderate {
+      background: #fff3e0;
+      border-left: 5px solid #fb8c00;
+    }
+
+    form {
+      margin-top: 2rem;
+    }
+
+    label {
+      display: block;
+      margin-top: 1rem;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.3rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
+
+    button {
+      margin-top: 1.5rem;
+      padding: 0.75rem 1.5rem;
+      background-color: #00796b;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    button:hover {
+      background-color: #00695c;
+    }
+
+    footer {
+      margin-top: 3rem;
+      text-align: center;
+      color: #777;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Solar Potential Estimator</h1>
+    <p>User Feedback and Reviews</p>
+  </header>
+
+  <div class="container">
+    <h2>What Our Users Say</h2>
+
+    <!-- Sample Reviews -->
+    <div id="feedback-list">
+      <div class="review">
+        <strong>Aarav Mehta</strong><br />
+        🌟🌟🌟🌟🌟<br />
+        Impressive tool! I was skeptical at first, but the solar estimator gave me accurate projections for my home. It helped me understand the potential savings and environmental impact. Highly recommended!"
+      </div>
+
+      <div class="review">
+        <strong>Sneha Reddy</strong><br />
+        🌟🌟🌟🌟🌟<br />
+       "Super easy to use!" I loved how intuitive the interface is. Within seconds, I had an estimate for solar panel feasibility on my rooftop. This tool makes going solar a no-brainer!"
+      </div>
+
+      <div class="review">
+        <strong>Rahul Singh</strong><br />
+        🌟🌟🌟🌟🌟<br />
+        Game-changer!" This tool gave me insights I never thought about before. The ability to visualize solar potential for my home with real data was amazing. Excited to take the next steps!" 
+      </div>
+
+      <div class="review moderate">
+        <strong>Priya Sharma</strong><br />
+        🌟🌟🌟<br />
+        "Saved me so much time!" Instead of researching endlessly, I got reliable estimates in minutes. The recommendations were helpful, and now I’m considering solar seriously!"
+      </div>
+
+      <div class="review moderate">
+        <strong>Vikram Das</strong><br />
+        🌟🌟🌟<br />
+       "Perfect for decision-making!" I had doubts about whether solar was worth the investment, but this estimator cleared everything up. The results were detailed, and the comparison feature was helpful!"
+      </div>
+    </div>
+
+    <!-- Feedback Form -->
+    <h2>Leave Your Feedback</h2>
+    <form id="feedback-form">
+      <label for="name">Full Name</label>
+      <input type="text" id="name" required />
+
+      <label for="email">Email ID</label>
+      <input type="email" id="email" required />
+
+      <label for="phone">Phone Number</label>
+      <input type="tel" id="phone" required />
+
+      <label for="review">Your Feedback</label>
+      <textarea id="review" rows="4" required></textarea>
+
+      <button type="submit">Submit Feedback</button>
+    </form>
+  </div>
+
+  <footer>
+    &copy; 2025 Solar Potential Estimator | Designed for Sustainable Energy
+  </footer>
+
+  <script>
+    const form = document.getElementById('feedback-form');
+    const feedbackList = document.getElementById('feedback-list');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const reviewText = document.getElementById('review').value;
+
+      // Simple classification of review sentiment
+      const isModerate = reviewText.toLowerCase().includes('moderate') || reviewText.length < 50;
+
+      const newReview = document.createElement('div');
+      newReview.className = 'review' + (isModerate ? ' moderate' : '');
+      newReview.innerHTML = `
+        <strong>${name}</strong><br />
+        🌟🌟🌟${isModerate ? '' : '🌟🌟'}<br />
+        “${reviewText}”
+      `;
+
+      feedbackList.appendChild(newReview);
+      form.reset();
+    });
+  </script>
+</body>
+</html>
