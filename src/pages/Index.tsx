@@ -5,6 +5,7 @@ import Hero from "@/components/Hero";
 import DrawingTool from "@/components/DrawingTool";
 import LocationSelector from "@/components/LocationSelector";
 import EnergyDashboard from "@/components/EnergyDashboard";
+import SolarHeatmap from "@/components/SolarHeatmap";
 import WeatherReport from "@/components/WeatherReport";
 import HowItWorks from "@/components/HowItWorks";
 import Benefits from "@/components/Benefits";
@@ -15,6 +16,7 @@ const Index = () => {
   const [rooftopArea, setRooftopArea] = useState(0);
   const [selectedStateId, setSelectedStateId] = useState<number | null>(null);
   const [selectedDistrictId, setSelectedDistrictId] = useState<number | null>(null);
+  const [solarResults, setSolarResults] = useState(null);
 
   const handleAreaCalculated = (area: number) => {
     setRooftopArea(area);
@@ -23,6 +25,10 @@ const Index = () => {
   const handleLocationChange = (stateId: number, districtId: number) => {
     setSelectedStateId(stateId);
     setSelectedDistrictId(districtId);
+  };
+
+  const handleSolarResultsCalculated = (results: any) => {
+    setSolarResults(results);
   };
 
   return (
@@ -49,7 +55,13 @@ const Index = () => {
               area={rooftopArea} 
               stateId={selectedStateId} 
               districtId={selectedDistrictId}
+              onResultsCalculated={handleSolarResultsCalculated}
             />
+          </div>
+
+          {/* Solar Heatmap Section */}
+          <div className="mt-8">
+            <SolarHeatmap result={solarResults} />
           </div>
 
           {/* Weather Report Section */}

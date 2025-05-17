@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -15,9 +14,10 @@ interface EnergyDashboardProps {
   area: number;
   stateId: number | null;
   districtId: number | null;
+  onResultsCalculated?: (results: SolarResult) => void;
 }
 
-const EnergyDashboard = ({ area, stateId, districtId }: EnergyDashboardProps) => {
+const EnergyDashboard = ({ area, stateId, districtId, onResultsCalculated }: EnergyDashboardProps) => {
   const [results, setResults] = useState<SolarResult | null>(null);
   const [activeTab, setActiveTab] = useState("energy");
 
@@ -36,10 +36,18 @@ const EnergyDashboard = ({ area, stateId, districtId }: EnergyDashboardProps) =>
       });
       
       setResults(result);
+      
+      // Pass the results to the parent component if callback exists
+      if (onResultsCalculated) {
+        onResultsCalculated(result);
+      }
     } else {
       setResults(null);
+      if (onResultsCalculated) {
+        onResultsCalculated(null);
+      }
     }
-  }, [area, stateId, districtId]);
+  }, [area, stateId, districtId, onResultsCalculated]);
 
   const getLocationName = (): { state: string; district: string } => {
     let stateName = "Default";
