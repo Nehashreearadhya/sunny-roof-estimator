@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { Sun, Menu, X } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -13,12 +14,12 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 w-full z-50 glass-effect backdrop-blur-lg py-3 px-4 md:px-8">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <div className="flex items-center space-x-2">
+        <Link to="/" className="flex items-center space-x-2">
           <Sun className="h-6 w-6 text-solar-yellow animate-pulse-glow" />
           <span className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-solar-blue to-solar-green">
-            SolarEstimator
+            Solivolve
           </span>
-        </div>
+        </Link>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex space-x-8">
@@ -31,6 +32,9 @@ const Navbar = () => {
           <a href="#benefits" className="font-medium hover:text-primary transition-colors">
             Benefits
           </a>
+          <Link to="/feedback" className="font-medium hover:text-primary transition-colors">
+            Feedback
+          </Link>
           <a href="#contact" className="font-medium hover:text-primary transition-colors">
             Contact
           </a>
@@ -79,6 +83,13 @@ const Navbar = () => {
           >
             Benefits
           </a>
+          <Link 
+            to="/feedback" 
+            className="block py-2 font-medium hover:text-primary transition-colors"
+            onClick={toggleMenu}
+          >
+            Feedback
+          </Link>
           <a 
             href="#contact" 
             className="block py-2 font-medium hover:text-primary transition-colors"

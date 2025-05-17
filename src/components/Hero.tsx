@@ -1,10 +1,28 @@
 
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Sun, Cloud, ArrowDownCircle } from "lucide-react";
+import { Sun, Cloud, ArrowDownCircle, Upload } from "lucide-react";
 import Lottie from "lottie-react";
 import solarPanelAnimation from "@/assets/animations/solar-panels.json";
 
 const Hero = () => {
+  const [uploadedImage, setUploadedImage] = useState<string | null>(null);
+  
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files && event.target.files[0]) {
+      const file = event.target.files[0];
+      const reader = new FileReader();
+      
+      reader.onload = (e) => {
+        if (e.target?.result) {
+          setUploadedImage(e.target.result as string);
+        }
+      };
+      
+      reader.readAsDataURL(file);
+    }
+  };
+
   return (
     <section id="home" className="min-h-screen pt-20 pb-10 relative overflow-hidden bg-solar-gradient">
       {/* Animated Background Elements */}
@@ -35,9 +53,18 @@ const Hero = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button className="text-lg px-8 py-6 bg-primary hover:bg-primary/90 transition-all">
-              Upload Roof Image
-            </Button>
+            <label className="cursor-pointer">
+              <input 
+                type="file" 
+                accept="image/*" 
+                className="hidden" 
+                onChange={handleImageUpload}
+              />
+              <div className="text-lg px-8 py-6 bg-primary hover:bg-primary/90 transition-all text-white rounded-md flex items-center gap-2 justify-center">
+                <Upload size={18} />
+                Upload Roof Image
+              </div>
+            </label>
             <Button variant="outline" className="text-lg px-8 py-6 border-2 transition-all flex items-center gap-2">
               Learn More <ArrowDownCircle size={18} />
             </Button>
@@ -46,14 +73,28 @@ const Hero = () => {
         
         <div className="mt-16 md:mt-24 max-w-5xl mx-auto">
           <div className="card-gradient rounded-2xl p-6 shadow-lg">
-            <div className="relative">
-              <Lottie 
-                animationData={solarPanelAnimation} 
-                loop={true} 
-                className="w-full h-auto rounded-xl object-cover shadow-md panel-glow"
-                style={{ maxHeight: '500px' }}
-              />
-            </div>
+            {uploadedImage ? (
+              <div className="relative">
+                <img 
+                  src={uploadedImage} 
+                  alt="Uploaded roof" 
+                  className="w-full h-auto rounded-xl object-cover shadow-md"
+                  style={{ maxHeight: '500px' }}
+                />
+                <div className="absolute inset-0 flex items-center justify-center bg-black/50 rounded-xl">
+                  <p className="text-white text-xl font-bold">Your Uploaded Image</p>
+                </div>
+              </div>
+            ) : (
+              <div className="relative">
+                <Lottie 
+                  animationData={solarPanelAnimation} 
+                  loop={true} 
+                  className="w-full h-auto rounded-xl object-cover shadow-md panel-glow"
+                  style={{ maxHeight: '500px' }}
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>
