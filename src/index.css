@@ -1,3 +1,4 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -129,6 +130,39 @@
 
 .panel-glow {
   animation: panelGlow 4s infinite ease-in-out;
+}
+
+/* Pulse glow animation */
+@keyframes pulseGlow {
+  0% {
+    filter: drop-shadow(0 0 2px rgba(252, 211, 77, 0.5));
+  }
+  50% {
+    filter: drop-shadow(0 0 10px rgba(252, 211, 77, 0.8));
+  }
+  100% {
+    filter: drop-shadow(0 0 2px rgba(252, 211, 77, 0.5));
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 2s infinite ease-in-out;
+}
+
+/* Fade in animation */
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out;
 }
 
 /* Gradient backgrounds */
